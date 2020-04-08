@@ -1,0 +1,20 @@
+
+.wineCard {
+  width: 250px;
+  height: auto;
+
+text-align: center;
+
+border: solid salmon;
+}
+
+  .wineName {
+    color: plum;
+    font-weight: bold;
+  }
+
+  .wineImg {
+    width: 200px;
+    height: "auto"
+
+  }
