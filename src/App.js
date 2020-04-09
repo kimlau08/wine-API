@@ -48,7 +48,14 @@ export default class App extends Component {
   }
 
   handleClickOnWine(e) {
-    let t=e.target;
+
+    if (e.target.attributes.wineinfo == undefined) {
+      return;
+    }
+
+    let wineObj=JSON.parse( e.target.getAttribute('wineinfo') )
+
+
   }  
 
   displayWineImgAndInfo(wine, id) {
@@ -57,10 +64,13 @@ export default class App extends Component {
       return "";
     }
 
+    let wineJSON=JSON.stringify(wine);
+
     return (
         <div className="wineCard">
           <p className="wineName">{wine.name}</p>
-          <img className="wineImg" src={wine.picture} wineInfo={wine} onClick={this.handleClickOnWine} /> 
+          <img className="wineImg" src={wine.picture} wineInfo={wineJSON} onClick={this.handleClickOnWine} /> 
+          <p className="winePrice"> Price: ${wine.price}</p>
         </div>
     )
   }
@@ -81,13 +91,12 @@ export default class App extends Component {
     return (
       <div>
         <h3>Wine List from Angel's Wine Database</h3>
-        <ul>
+
+        <div className="wineRow">
+          { this.state.response.map( this.displayWineImgAndInfo)}
+        </div>
       
-        { this.state.response.map( this.displayWineImgAndInfo)}
 
-{/* { this.state.wineImagePaths.map( this.displayWineImg)} */}
-
-        </ul>
       </div>
   )}
 }

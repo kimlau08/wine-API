@@ -1,15 +1,23 @@
 
+
+.wineRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .wineCard {
   width: 250px;
   height: auto;
 
-text-align: center;
+  text-align: center;
 
 border: solid salmon;
 }
 
   .wineName {
     color: plum;
+    font-size: 14px;
     font-weight: bold;
   }
 
@@ -17,4 +25,10 @@ border: solid salmon;
     width: 200px;
     height: "auto"
 
+  }
+
+  .winePrice {
+    color: darkolivegreen;
+    font-size: 14px;
+    font-weight: bold;
   }
