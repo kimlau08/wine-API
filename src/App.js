@@ -16,7 +16,6 @@ export default class App extends Component {
     this.loadWineInfo=this.loadWineInfo.bind(this);
     this.displayWineImgAndInfo=this.displayWineImgAndInfo.bind(this);
     this.handleClickOnWine=this.handleClickOnWine.bind(this);    //display wine info
-    // this.displayWineImg=this.displayWineImg.bind(this);
   }
   
   componentDidMount() {
@@ -70,21 +69,12 @@ export default class App extends Component {
         <div className="wineCard">
           <p className="wineName">{wine.name}</p>
           <img className="wineImg" src={wine.picture} wineInfo={wineJSON} onClick={this.handleClickOnWine} /> 
-          <p className="winePrice"> Price: ${wine.price}</p>
+          <p className="wineDetail"> Country: {wine.country} </p>
+          <p className="wineDetail"> Year: {wine.year}  </p>
+          <p className="wineDetail"> Price: ${wine.price}</p>
         </div>
     )
   }
-
-  // displayWineImg(path, id) {
-
-  //   const wineImgStyle = {
-  //     width: "200px",
-  //     height: "auto"
-  //   };
-
-  //   return (
-  //   <img src={path} style={wineImgStyle} />)
-  // }
 
   render() {
 

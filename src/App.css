@@ -27,8 +27,8 @@ border: solid salmon;
 
   }
 
-  .winePrice {
-    color: darkolivegreen;
+  .wineDetail {
+    color: lightslategray;
     font-size: 14px;
     font-weight: bold;
   }
