@@ -11,7 +11,8 @@ export default class App extends Component {
     this.state={
       response: [],   //contains a list of wine info
       wineNames: [],
-      wineImagePaths: []
+      wineImagePaths: [],
+      wineStrings: []
     }
 
     this.getWineAPI=this.getWineAPI.bind(this);
@@ -27,13 +28,16 @@ export default class App extends Component {
   loadWineInfo() {
     let wineNameList=[];
     let wineImagePathList=[];
+    let wineStrArray=[];
     for (let i=0; i<this.state.response.length; i++) {
       wineNameList.push(this.state.response[i].name);
       wineImagePathList.push(this.state.response[i].picture);
+      wineStrArray.push(JSON.stringify(this.state.response[i])); //stringify the wine object
     }
 
     this.setState( {wineNames:      wineNameList } );
     this.setState( {wineImagePaths: wineImagePathList } );
+    this.setState( {wineStrings:    wineStrArray } );
   }
 
   async getWineAPI() {
@@ -74,8 +78,9 @@ export default class App extends Component {
 
 
         <Link to={{
-                    pathname: "/WineForm",
-                    wineInfo: { wineJSON },
+                    pathname:  "/WineForm",
+                    wineStrings:  this.state.wineStrings,
+                    idx:       id,
                     wineRowId: "wineRow"
                   }}>
               <img className="wineImg" src={wine.picture} /> 
