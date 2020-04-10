@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import WineForm from './components/WineForm';
+import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state={
-      response: [],   //contians a list of wine info
+      response: [],   //contains a list of wine info
       wineNames: [],
-      wineImagePaths: [],
+      wineImagePaths: []
     }
 
     this.getWineAPI=this.getWineAPI.bind(this);
     this.loadWineInfo=this.loadWineInfo.bind(this);
     this.displayWineImgAndInfo=this.displayWineImgAndInfo.bind(this);
-    this.handleClickOnWine=this.handleClickOnWine.bind(this);    //display wine info
+    // this.handleClickOnWine=this.handleClickOnWine.bind(this);    //display wine info
   }
   
   componentDidMount() {
@@ -46,16 +48,17 @@ export default class App extends Component {
     }
   }
 
-  handleClickOnWine(e) {
+  // handleClickOnWine(e) {
 
-    if (e.target.attributes.wineinfo == undefined) {
-      return;
-    }
+  //   if (e.target.attributes.wineinfo == undefined) {
+  //     return;
+  //   }
 
-    let wineObj=JSON.parse( e.target.getAttribute('wineinfo') )
+  //   let wineObj=JSON.parse( e.target.getAttribute('wineinfo') )
+  //   let elem=document.getElementById("wineRow");
+  //   elem.style.display = 'none';
 
-
-  }  
+  // }  
 
   displayWineImgAndInfo(wine, id) {
 
@@ -66,13 +69,24 @@ export default class App extends Component {
     let wineJSON=JSON.stringify(wine);
 
     return (
-        <div className="wineCard">
-          <p className="wineName">{wine.name}</p>
-          <img className="wineImg" src={wine.picture} wineInfo={wineJSON} onClick={this.handleClickOnWine} /> 
-          <p className="wineDetail"> Country: {wine.country} </p>
-          <p className="wineDetail"> Year: {wine.year}  </p>
-          <p className="wineDetail"> Price: ${wine.price}</p>
-        </div>
+      <div className="wineCard">
+        <p className="wineName">{wine.name}</p>
+
+
+        <Link to={{
+                    pathname: "/WineForm",
+                    wineInfo: { wineJSON },
+                    wineRowId: "wineRow"
+                  }}>
+              <img className="wineImg" src={wine.picture} /> 
+        </Link>
+
+
+
+        <p className="wineDetail"> Country: {wine.country} </p>
+        <p className="wineDetail"> Year: {wine.year}  </p>
+        <p className="wineDetail"> Price: ${wine.price}</p>
+      </div>
     )
   }
 
@@ -80,12 +94,23 @@ export default class App extends Component {
 
     return (
       <div>
-        <h3>Wine List from Angel's Wine Database</h3>
+        <h3>Wine List</h3>
 
-        <div className="wineRow">
-          { this.state.response.map( this.displayWineImgAndInfo)}
-        </div>
-      
+        <Router>
+
+          <nav>
+            <ul id="wineRow">
+              <li>
+                { this.state.response.map( this.displayWineImgAndInfo) }
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route exact path="/WineForm" component={WineForm} />
+          </Switch>
+
+        </Router>
 
       </div>
   )}

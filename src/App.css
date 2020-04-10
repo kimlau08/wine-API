@@ -1,18 +1,23 @@
 
+li {
+    display: inline;
+}
 
-.wineRow {
-  display: flex;
+#wineRow {
+  /* display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+
+border: solid 1px red;
 }
 
 .wineCard {
+  display: inline-block;
   width: 250px;
   height: auto;
 
   text-align: center;
-
-border: solid salmon;
+  border: solid 1px lightslategray;
 }
 
   .wineName {
