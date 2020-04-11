@@ -6,17 +6,16 @@ li {
 .windFormContainer {
   display: flex;
   flex-direction: row;
-  width: 900px;
+  width: 1000px;
   height: auto;
 
 border: solid 1px red;
 }
 
   .wineImgBox {
-    width: 30%;
+    width: 35%;
     height: auto;
     text-align: center;
-
 
  border: solid 1px brown;
   }
@@ -26,32 +25,68 @@ border: solid 1px red;
       font-size: 18px;
       font-weight: bold;
     }
+    .largeWineImg {
+      width: 300px;
+      text-align: center;
+    }
 
 
   .wineFormBox {
-      width: 70%;
-    text-align: center;
+      width: 65%;
+      text-align: center;
 border: solid 1px lightgreen;
   }
     
     .inputContainer {
-      margin: 10px auto;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 
-      width: 80%;
-      height: 60%;
+      width: 70%;
+border: solid blue
     }
 
     
-      .nameInputBox {
-        grid-column: 1/3;
-        grid-row: 1;
-        font-size: 14px;
+      /* Column layout */
+      .nameInputBox, .grapesInputBox, .regionInputBox {
 
+        grid-column: 1/3;
+        font-size: 14px;
         align-self: center;
       }
+      .yearInputBox, .countryInputBox, .priceInputBox {
+
+        grid-column: 3/5;
+        font-size: 14px;
+        align-self: center;
+      }
+      .descInputBox, .imgPathInputBox {
+
+        grid-column: 1/5;
+        font-size: 12px;
+        align-self: center;
+      }
+
+      /* Row layout */
+      .nameInputBox, .yearInputBox {
+        grid-row: 1;
+        margin: 20px;
+      }
+      .grapesInputBox, .countryInputBox {
+        grid-row: 2;
+      }
+      .regionInputBox, .priceInputBox {
+        grid-row: 3;
+      }
+      .descInputBox {
+        grid-row: 4;
+      }
+      .imgPathInputBox {
+        grid-row: 5;
+      }
+
+      
 
         .textInput {
           border: solid 1px #E6DBDA;
@@ -60,17 +95,12 @@ border: solid 1px lightgreen;
           padding: 8px;
         }
 
-      .yearInputBox {
-        grid-column: 3/5;
-        grid-row: 1;
-        font-size: 14px;
-
-        align-self: center;
-      }
 
       .updateButtonRow {
         grid-column: 1/5;
         grid-row: 6;
+
+        margin: 20px;
 
         display: flex;
         flex-direction: row;

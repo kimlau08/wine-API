@@ -1,68 +1,111 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import cameraCircleImg from '../assets/cameraCircle.png';
-
 export default class wineForm extends Component {
     constructor(props) {
         super(props);
 
         this.state={
             newName: "",
-            newYear: ""
+            newYear: "",
+            newGrapes: "",
+            newCountry: "",
+            newRegion: "",
+            newPrice: "",
+            newDesc: "",
+            newImgURL: ""
         };
 
-        this.handleTextChange=this.handleTextChange.bind(this);
+        this.handleNameChange=this.handleNameChange.bind(this);
         this.handleYearChange=this.handleYearChange.bind(this);
+        this.handleGrapesChange=this.handleGrapesChange.bind(this);
+        this.handleCountryChange=this.handleCountryChange.bind(this);
+        this.handleRegionChange=this.handleRegionChange.bind(this);
+        this.handlePriceChange=this.handlePriceChange.bind(this);
+        this.handleDescChange=this.handleDescChange.bind(this);
+        this.handleImgURLChange=this.handleImgURLChange(this);
         this.handleSubmitForm=this.handleSubmitForm.bind(this);
         this.handleDeleteButtonClick=this.handleDeleteButtonClick.bind(this);
     }
 
-    handleNameChange(event) {
+    
+    handleImgURLChange(event) {
+        if (event.target != undefined) {
 
-    }
-
-    handleImagePathChange(event) {
-
+            this.setState({newImgURL: event.target.value}); //update the state when the field is changed
+        }
     }
 
     handleGrapesChange(event) {
-
+        if (event.target != undefined) {
+            
+            this.setState({newGrapes: event.target.value}); //update the state when the field is changed
+        }
     }
 
     handleCountryChange(event) {
-
+        if (event.target != undefined) {
+            
+            this.setState({newCountry: event.target.value}); //update the state when the field is changed
+        }
     }
 
     handleDescChange(event) {
-
+        if (event.target != undefined) {
+            
+            this.setState({newDesc: event.target.value}); //update the state when the field is changed
+        }
     }
 
     /**********************************************************/
 
-    handleTextChange(event) {
+    handleNameChange(event) {
+        if (event.target != undefined) {
 
-        this.setState({newName: event.target.value}); //update the state when the field is changed
+            this.setState({newName: event.target.value}); //update the state when the field is changed
+        }
     }
     
     handleYearChange(event) {
+        if (event.target != undefined) {
 
-        this.setState({newYear: event.target.value}); 
+            this.setState({newYear: event.target.value}); 
+        }
     }
 
     handlePriceChange(event) {
+        if (event.target != undefined) {
 
-        // this.setState({value: event.target.value}); //update the value state when the field is changed
+            this.setState({newPrice: event.target.value}); //update the value state when the field is changed
+        }
     }
 
     handleRegionChange(event) {
+        if (event.target != undefined) {
 
-        // this.setState({value: event.target.value}); //update the value state when the field is changed
+            this.setState({newRegion: event.target.value}); //update the value state when the field is changed
+        }
     }
 
 
     handleSubmitForm(event) {
-        let a=true;
+
+        if (event.target.elements == undefined) {
+            return;
+        }
+
+        let wineObj={};
+        for (let i=0; i<event.target.elements.length; i++) {
+            let elem=event.target.elements[i];
+            if (elem.type != "text") {
+                continue;
+            }
+
+            let keyValue={ [elem.name]: elem.value  }
+            //merge key:value pair to wineObj
+            Object.assign(wineObj, keyValue);
+
+        }
 
         event.preventDefault();
     }
@@ -92,7 +135,7 @@ export default class wineForm extends Component {
             <div className="windFormContainer">
                 <div className="wineImgBox">
                     <h2 className="wineFormTitle"> {wineObj.name} </h2><br />
-                    <img className="wineImg" src={wineObj.picture} /> 
+                    <img className="largeWineImg" src={wineObj.picture} /> 
                 </div>
                 <div className="wineFormBox">
                     <h2 className="wineFormTitle"> Wine Info </h2><br />
@@ -101,49 +144,49 @@ export default class wineForm extends Component {
 
                         <label className="nameInputBox">
                             Name<br />
-                            <input className="textInput" type="text" defaultValue={wineObj.name} placeholder="wine name" onChange={this.handleTextChange} />
+                            <input className="textInput" type="text" name="name" defaultValue={wineObj.name} placeholder="wine name" onChange={this.handleNameChange} />
                         </label>
 
                         <label className="yearInputBox">
                             Year<br />
-                            <input className="textInput" type="text" defaultValue={wineObj.year} placeholder="year" onChange={this.handleYearChange} />
+                            <input className="textInput" type="text" name="year" defaultValue={wineObj.year}          placeholder="year" onChange={this.handleYearChange} />
                         </label>
-
-    {/* 
-                        <div className="uploadPhotoBox">
-                        <img className="cameraImg" src={cameraCircleImg} />
-                            <label className="uploadLabel" for="filePickerInput">Upload a photo</label>
-                            <input id="filePickerInput" type="file" value={wineObj.picture}  onChange={handleTextChange} />
-                        </div>
 
                         <label className="grapesInputBox">
                             Grapes<br />
-                            <input className="textInput" type="text" value={wineObj.grapes} placeholder="grapes" onChange={handleTextChange} />
+                            <input className="textInput" type="text" name="grapes" defaultValue={wineObj.grapes} placeholder="grapes" onChange={this.handleGrapesChange} />
                         </label>
                         
                         <label className="countryInputBox">
                             Country<br />
-                            <input className="textInput" type="text" value={wineObj.country} placeholder="country" onChange={handleTextChange} />
+                            <input className="textInput" type="text" name="country" defaultValue={wineObj.country} placeholder="country" onChange={this.handleCountryChange} />
                         </label>
                         
                         <label className="regionInputBox">
-                            Country<br />
-                            <input className="textInput" type="text" value={wineObj.region} placeholder="region" onChange={handleRegionChange} />
+                            Region<br />
+                            <input className="textInput" type="text" name="region" defaultValue={wineObj.region} placeholder="region" onChange={this.handleRegionChange} />
                         </label>
                         
                         <label className="priceInputBox">
-                            Country<br />
-                            <input className="textInput" type="text" value={wineObj.price} placeholder="price" onChange={handlePriceChange} />
+                            Price<br />
+                            <input className="textInput" type="text" name="price" defaultValue={wineObj.price} placeholder="price (USD)" onChange={this.handlePriceChange} />
                         </label>
+
                         
                         <label className="descInputBox">
-                            Country<br />
-                            <input className="textInput" type="text" value={wineObj.price} placeholder="description" onChange={handleDescChange} />
-                        </label> */}
+                            Description<br />
+                            <textarea className="textAreaInput" name="desc" rows="3" cols="60" defaultValue={wineObj.description} placeholder="description" onChange={this.handleDescChange} />
+                        </label>
+
+                        <label className="imgPathInputBox">
+                            Picture URL<br />
+                            <textarea className="imgURLInput" name="imgURL" rows="1" cols="60" defaultValue={wineObj.picture} placeholder="picture URL" onChange={this.handleImgURLChange} />
+                        </label>
+
 
                         <div className="updateButtonRow">
-                            <button type="submit" className="createButton">Create</button>
-                            <button className="deleteButton" onClick={this.handleDeleteButtonClick} >Delete</button>
+                            <button type="submit" name="create" className="createButton">Create</button>
+                            <button type="submit" name="delete" className="deleteButton" onClick={this.handleDeleteButtonClick} >Delete</button>
                         </div>
                     </form>
                 
