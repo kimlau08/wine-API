@@ -156,7 +156,7 @@ export default class wineForm extends Component {
                     <h2 className="wineFormTitle"> {wineObj.name} </h2><br />
                     <img className="largeWineImg" src={wineObj.picture} /> 
 
-                    <button name="delete" className="deleteButton" onClick={this.handleDeleteWine} wineId={wineObj.id} >Delete</button>
+                    <button name="delete" className="createButton" onClick={this.handleDeleteWine} wineId={wineObj.id} >Delete</button>
                 </div>
                 <div className="wineFormBox">
                     <h2 className="wineFormTitle"> Wine Info </h2><br />
@@ -205,8 +205,8 @@ export default class wineForm extends Component {
                         </label>
 
 
-                        <div className="updateButtonRow">
-                            <button type="submit" name="create" className="createButton">Create</button>
+                        <div className="createButtonBox">
+                            <button type="submit" className="createButton" name="create" className="createButton">Create</button>
                         </div>
                     </form>
                 

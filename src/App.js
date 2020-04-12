@@ -61,7 +61,7 @@ export default class App extends Component {
                    wineObj, { headers: {} } );   
       console.log(response.data);
   
-      this.getWineAPI(); //re-post wine list to see result
+      this.getWineAPI(); //update wine list rendering to see result
     } catch(e) {
       console.error.apply(e);
     }
@@ -74,7 +74,7 @@ export default class App extends Component {
       const response = await axios.delete( deleteRequestURL );
       console.log(response.data)
     
-      this.getWineAPI(); //re-post wine list to see result
+      this.getWineAPI(); //update wine list rendering to see result
     } catch(e) {
       console.error(e);
     }
@@ -122,7 +122,7 @@ export default class App extends Component {
 
     return (
       <div>
-        <h3>Wine List</h3>
+        <p className="wineListText" >Wine List</p>
 
         <Router>
 
