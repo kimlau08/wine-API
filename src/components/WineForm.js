@@ -115,6 +115,7 @@ export default class wineForm extends Component {
             this.props.location.createWineCallBack(wineStr);
         } 
 
+        //Redirect back to root (App component)
         this.setState( { redirectToWineLst: true } ); 
     }
     handleDeleteWine(event) {
@@ -128,14 +129,9 @@ export default class wineForm extends Component {
             this.props.location.deleteWineCallBack(wineId);
         }
 
+        //Redirect back to root (App component)
         this.setState( { redirectToWineLst: true } ); 
     }
-
-    validateCurrency(amount) {
-        let regex = /^[1-9]\d*(?:\.\d{0,2})?$/;
-        return regex.test(amount);
-    }
-
 
     render() {
         if (this.props.location.wineStrings === undefined) {
@@ -149,7 +145,7 @@ export default class wineForm extends Component {
             <div className="windFormContainer">
 
                 {this.state.redirectToWineLst &&
-                        <Redirect to='/' />    //route back to App component
+                        <Redirect to='/' />    //route back to root (App component) depending on state
             }
 
                 <div className="wineImgBox">

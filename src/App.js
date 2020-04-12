@@ -12,7 +12,7 @@ export default class App extends Component {
       response: [],   //contains a list of wine info
       wineNames: [],
       wineImagePaths: [],
-      wineStrings: [],
+      wineStrings: []
     }
 
     this.getWineAPI=this.getWineAPI.bind(this);
@@ -126,6 +126,7 @@ export default class App extends Component {
 
         <Router>
 
+          {/* Render wine list */}
           <nav>
             <ul id="wineRow">
               <li>
@@ -134,6 +135,7 @@ export default class App extends Component {
             </ul>
           </nav>
 
+          {/* Route to WineForm */}
           <Switch>
             <Route exact path="/WineForm" component={WineForm} />
           </Switch>
