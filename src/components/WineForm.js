@@ -138,7 +138,7 @@ export default class wineForm extends Component {
 
 
     render() {
-        if (this.props.location.wineStrings === undefined) {
+        if (this.props.location.wineStrings == undefined) {
             return <div> </div>
         }
     

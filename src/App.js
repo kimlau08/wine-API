@@ -59,9 +59,9 @@ export default class App extends Component {
     try {
       const response = await axios.post('http://myapi-profstream.herokuapp.com/api/e02526/wines',
                    wineObj, { headers: {} } );   
-
       console.log(response.data);
   
+      this.getWineAPI(); //re-post wine list to see result
     } catch(e) {
       console.error.apply(e);
     }
@@ -73,6 +73,8 @@ export default class App extends Component {
     try {
       const response = await axios.delete( deleteRequestURL );
       console.log(response.data)
+    
+      this.getWineAPI(); //re-post wine list to see result
     } catch(e) {
       console.error(e);
     }
@@ -82,12 +84,9 @@ export default class App extends Component {
     let wineObj=JSON.parse(wineStr);
     this.postWineAPI(wineObj);
 
-    this.getWineAPI(); //re-post wine list to verify result
   }
   deleteWineData(wineIdObj) { //call back to delete wine object from remote
      this.deleteWineAPI(wineIdObj.value);
- 
-     this.getWineAPI(); //re-post wine list to verify result
   }
 
   displayWineImgAndInfo(wine, id) {
