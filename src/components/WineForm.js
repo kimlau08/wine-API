@@ -33,56 +33,56 @@ export default class wineForm extends Component {
 
     
     handleImgURLChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
 
             this.setState({newImgURL: event.target.value}); //update the state when the field is changed
         }
     }
 
     handleGrapesChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
             
             this.setState({newGrapes: event.target.value}); //update the state when the field is changed
         }
     }
 
     handleCountryChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
             
             this.setState({newCountry: event.target.value}); //update the state when the field is changed
         }
     }
 
     handleDescChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
             
             this.setState({newDesc: event.target.value}); //update the state when the field is changed
         }
     }
 
     handleNameChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
 
             this.setState({newName: event.target.value}); //update the state when the field is changed
         }
     }
     
     handleYearChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
 
             this.setState({newYear: event.target.value}); 
         }
     }
 
     handlePriceChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
 
             this.setState({newPrice: event.target.value}); //update the value state when the field is changed
         }
     }
 
     handleRegionChange(event) {
-        if (event.target != undefined) {
+        if (event.target !== undefined) {
 
             this.setState({newRegion: event.target.value}); //update the value state when the field is changed
         }
@@ -91,14 +91,14 @@ export default class wineForm extends Component {
 
     handleSubmitForm(event) {
 
-        if (event.target.elements == undefined) {
+        if (event.target.elements === undefined) {
             return;
         }
 
         let wineObj={};
         for (let i=0; i<event.target.elements.length; i++) {
             let elem=event.target.elements[i];
-            if (elem.type != "text" && elem.type != "textarea") {
+            if (elem.type !== "text" && elem.type !== "textarea") {
                 continue;
             }
 
@@ -119,7 +119,7 @@ export default class wineForm extends Component {
     }
     handleDeleteWine(event) {
         
-        if (event.target.attributes == undefined) {
+        if (event.target.attributes === undefined) {
             return;
         }
 
@@ -138,7 +138,7 @@ export default class wineForm extends Component {
 
 
     render() {
-        if (this.props.location.wineStrings == undefined) {
+        if (this.props.location.wineStrings === undefined) {
             return <div> </div>
         }
     

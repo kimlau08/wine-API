@@ -91,7 +91,7 @@ export default class App extends Component {
 
   displayWineImgAndInfo(wine, id) {
 
-    if (wine == undefined) {
+    if (wine === undefined) {
       return "";
     }
 
