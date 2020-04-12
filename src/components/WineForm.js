@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
+import { Redirect } from 'react-router-dom';
 
 export default class wineForm extends Component {
     constructor(props) {
@@ -13,7 +14,9 @@ export default class wineForm extends Component {
             newRegion: "",
             newPrice: "",
             newDesc: "",
-            newImgURL: ""
+            newImgURL: "",
+
+            redirectToWineLst: false
         };
 
         this.handleNameChange=this.handleNameChange.bind(this);
@@ -25,7 +28,7 @@ export default class wineForm extends Component {
         this.handleDescChange=this.handleDescChange.bind(this);
         this.handleImgURLChange=this.handleImgURLChange(this);
         this.handleSubmitForm=this.handleSubmitForm.bind(this);
-        this.handleDeleteButtonClick=this.handleDeleteButtonClick.bind(this);
+        this.handleDeleteWine=this.handleDeleteWine.bind(this);
     }
 
     
@@ -56,8 +59,6 @@ export default class wineForm extends Component {
             this.setState({newDesc: event.target.value}); //update the state when the field is changed
         }
     }
-
-    /**********************************************************/
 
     handleNameChange(event) {
         if (event.target != undefined) {
@@ -97,7 +98,7 @@ export default class wineForm extends Component {
         let wineObj={};
         for (let i=0; i<event.target.elements.length; i++) {
             let elem=event.target.elements[i];
-            if (elem.type != "text") {
+            if (elem.type != "text" && elem.type != "textarea") {
                 continue;
             }
 
@@ -108,11 +109,27 @@ export default class wineForm extends Component {
         }
 
         event.preventDefault();
-    }
-    handleDeleteButtonClick(event) {
 
-    }
+        let wineStr=JSON.stringify(wineObj)
+        if (window.confirm("Creating new wine in product catalog")) {
+            this.props.location.createWineCallBack(wineStr);
+        } 
 
+        this.setState( { redirectToWineLst: true } ); 
+    }
+    handleDeleteWine(event) {
+        
+        if (event.target.attributes == undefined) {
+            return;
+        }
+
+        if (window.confirm("Deleting wine in product catalog")) {
+            let wineId=event.target.attributes.wineId;
+            this.props.location.deleteWineCallBack(wineId);
+        }
+
+        this.setState( { redirectToWineLst: true } ); 
+    }
 
     validateCurrency(amount) {
         let regex = /^[1-9]\d*(?:\.\d{0,2})?$/;
@@ -128,14 +145,18 @@ export default class wineForm extends Component {
         let wineIdx=this.props.location.idx;  //index to the stringified wine object array
         let wineObj=JSON.parse(this.props.location.wineStrings[wineIdx]);
     
-        let elem=document.getElementById("wineRow");
-        elem.style.display = 'none';
-
         return (
             <div className="windFormContainer">
+
+                {this.state.redirectToWineLst &&
+                        <Redirect to='/' />    //route back to App component
+            }
+
                 <div className="wineImgBox">
                     <h2 className="wineFormTitle"> {wineObj.name} </h2><br />
                     <img className="largeWineImg" src={wineObj.picture} /> 
+
+                    <button name="delete" className="deleteButton" onClick={this.handleDeleteWine} wineId={wineObj.id} >Delete</button>
                 </div>
                 <div className="wineFormBox">
                     <h2 className="wineFormTitle"> Wine Info </h2><br />
@@ -175,18 +196,17 @@ export default class wineForm extends Component {
                         
                         <label className="descInputBox">
                             Description<br />
-                            <textarea className="textAreaInput" name="desc" rows="3" cols="60" defaultValue={wineObj.description} placeholder="description" onChange={this.handleDescChange} />
+                            <textarea className="textAreaInput" name="description" rows="3" cols="60" defaultValue={wineObj.description} placeholder="description" onChange={this.handleDescChange} />
                         </label>
 
                         <label className="imgPathInputBox">
                             Picture URL<br />
-                            <textarea className="imgURLInput" name="imgURL" rows="1" cols="60" defaultValue={wineObj.picture} placeholder="picture URL" onChange={this.handleImgURLChange} />
+                            <textarea className="imgURLInput" name="picture" rows="1" cols="60" defaultValue={wineObj.picture} placeholder="picture URL" onChange={this.handleImgURLChange} />
                         </label>
 
 
                         <div className="updateButtonRow">
                             <button type="submit" name="create" className="createButton">Create</button>
-                            <button type="submit" name="delete" className="deleteButton" onClick={this.handleDeleteButtonClick} >Delete</button>
                         </div>
                     </form>
                 

@@ -12,13 +12,16 @@ export default class App extends Component {
       response: [],   //contains a list of wine info
       wineNames: [],
       wineImagePaths: [],
-      wineStrings: []
+      wineStrings: [],
     }
 
     this.getWineAPI=this.getWineAPI.bind(this);
     this.loadWineInfo=this.loadWineInfo.bind(this);
     this.displayWineImgAndInfo=this.displayWineImgAndInfo.bind(this);
-    // this.handleClickOnWine=this.handleClickOnWine.bind(this);    //display wine info
+    this.postWineAPI=this.postWineAPI.bind(this);
+    this.deleteWineAPI=this.deleteWineAPI.bind(this);
+    this.addNewWineData=this.addNewWineData.bind(this);
+    this.deleteWineData=this.deleteWineData.bind(this)
   }
   
   componentDidMount() {
@@ -52,25 +55,46 @@ export default class App extends Component {
     }
   }
 
-  // handleClickOnWine(e) {
+  async postWineAPI(wineObj) {  //create new wine product info obtained from WineForm component 
+    try {
+      const response = await axios.post('http://myapi-profstream.herokuapp.com/api/e02526/wines',
+                   wineObj, { headers: {} } );   
 
-  //   if (e.target.attributes.wineinfo == undefined) {
-  //     return;
-  //   }
+      console.log(response.data);
+  
+    } catch(e) {
+      console.error.apply(e);
+    }
+  }
 
-  //   let wineObj=JSON.parse( e.target.getAttribute('wineinfo') )
-  //   let elem=document.getElementById("wineRow");
-  //   elem.style.display = 'none';
+  async deleteWineAPI(wineId) {
+    const deleteRequestURL='http://myapi-profstream.herokuapp.com/api/e02526/wines'+'/'+wineId;
 
-  // }  
+    try {
+      const response = await axios.delete( deleteRequestURL );
+      console.log(response.data)
+    } catch(e) {
+      console.error(e);
+    }
+  }
+  
+  addNewWineData(wineStr) {  //call back to post new wine obj to remote
+    let wineObj=JSON.parse(wineStr);
+    this.postWineAPI(wineObj);
+
+    this.getWineAPI(); //re-post wine list to verify result
+  }
+  deleteWineData(wineIdObj) { //call back to delete wine object from remote
+     this.deleteWineAPI(wineIdObj.value);
+ 
+     this.getWineAPI(); //re-post wine list to verify result
+  }
 
   displayWineImgAndInfo(wine, id) {
 
     if (wine == undefined) {
       return "";
     }
-
-    let wineJSON=JSON.stringify(wine);
 
     return (
       <div className="wineCard">
@@ -81,12 +105,12 @@ export default class App extends Component {
                     pathname:  "/WineForm",
                     wineStrings:  this.state.wineStrings,
                     idx:       id,
-                    wineRowId: "wineRow"
+                    wineRowId: "wineRow",
+                    createWineCallBack: this.addNewWineData,
+                    deleteWineCallBack: this.deleteWineData
                   }}>
               <img className="wineImg" src={wine.picture} /> 
         </Link>
-
-
 
         <p className="wineDetail"> Country: {wine.country} </p>
         <p className="wineDetail"> Year: {wine.year}  </p>

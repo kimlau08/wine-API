@@ -4,10 +4,16 @@ li {
 }
 
 .windFormContainer {
+
+  position: absolute;
+  top: 80px;
+  left: 300px;
+
   display: flex;
   flex-direction: row;
   width: 1000px;
   height: auto;
+  background-color: #E6DBDA;
 
 border: solid 1px red;
 }
